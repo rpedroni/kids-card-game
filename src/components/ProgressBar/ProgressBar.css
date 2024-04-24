@@ -1,0 +1,23 @@
+.progress-bar {
+  --border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.progress-bar__bar {
+  flex-grow: 1;
+  box-sizing: border-box;
+  background-color: var(--nico-color);
+  padding-right: 1rem;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  font-weight: bold;
+  font-size: 2rem;
+  border-radius: var(--border-radius);
+}
+
+.progress-bar__bar--kike {
+  background-color: var(--kike-color);
+}

@@ -1,0 +1,21 @@
+.nav-bar {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  background-color: var(--nico-color);
+}
+
+.nav-bar--kike {
+  background-color: var(--kike-color);
+}
+
+.nav-bar__option {
+  padding: 2px 8px;
+}
+
+.nav-bar__option.active {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+}

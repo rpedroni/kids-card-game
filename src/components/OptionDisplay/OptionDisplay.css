@@ -1,0 +1,17 @@
+header.option-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+header.option-display h1 {
+  text-transform: uppercase;
+  font-size: 10vw;
+  text-align: center;
+}
+
+header.option-display button {
+  width: 5vw;
+  min-width: 40px;
+}
