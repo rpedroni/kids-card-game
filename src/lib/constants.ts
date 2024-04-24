@@ -1,6 +1,6 @@
 import { Option } from './types';
 
-export const DEFAULT_VICTORY_POINTS = 1;
+export const DEFAULT_VICTORY_POINTS = 10;
 export const DEFAULT_VICTORY_CELEBRATION_TIME = 5000;
 
 export const OPTION_SET_ANIMALS: Option[] = [
