@@ -1,12 +1,13 @@
 import { faker } from '@faker-js/faker';
-import { OPTION_SET_ANIMALS } from './constants';
-import { GameType, Round } from './types';
+import { OPTION_SETS } from './constants';
+import { GameType, Option, Round } from './types';
 
 const getRandom = (options: any[]) => faker.helpers.arrayElement(options);
-const getRandomOptions = (amount = 5) => faker.helpers.arrayElements(OPTION_SET_ANIMALS, amount);
+const getRandomOptions = (options: Option[], amount = 5) => faker.helpers.arrayElements(options, amount);
 
 export const getNewRound = (gameType = GameType.TextAndSoundToImage): Round => {
-  const options = getRandomOptions();
+  const optionSet = getRandom(OPTION_SETS);
+  const options = getRandomOptions(optionSet);
   const correctOption = getRandom(options);
   const correctIndex = options.indexOf(correctOption);
 

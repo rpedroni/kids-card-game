@@ -1,15 +1,13 @@
 import { motion } from 'framer-motion';
 
 import './ProgressBar.css';
-import { GAME_WIN_POINTS } from '../../lib/constants';
-import { useWindowSize } from '@uidotdev/usehooks';
-import { usePlayer } from '../../context/context';
+import { useGameInformation } from '../../context/gameContext';
 import { classNameWithPlayer } from '../../lib/utils';
 import { Text } from '@chakra-ui/react';
 
-export const ProgressBar = ({ points, winPoints = GAME_WIN_POINTS }: { points: number; winPoints?: number }) => {
-  const [player] = usePlayer();
-  const percentage = points / winPoints;
+export const ProgressBar = () => {
+  const { player, points, pointsRequiredForVictory } = useGameInformation();
+  const percentage = points / pointsRequiredForVictory;
 
   return (
     <div className="progress-bar">

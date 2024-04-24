@@ -5,16 +5,16 @@ import { ChakraProvider } from '@chakra-ui/react';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { AppContextProvider } from './context/context';
+import { GameContextProvider } from './context/gameContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <AppContextProvider>
+    <GameContextProvider>
       <ChakraProvider>
         <App />
       </ChakraProvider>
-    </AppContextProvider>
+    </GameContextProvider>
   </React.StrictMode>,
 );
 

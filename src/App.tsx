@@ -1,69 +1,46 @@
-import { useState } from 'react';
 // @ts-ignore
 import Sky from 'react-sky';
-import useSound from 'use-sound';
-
-import { getNewRound } from './lib/game';
 
 import './App.css';
-import correctSfx from './sounds/correct-2.mp3';
-import wrongSfx from './sounds/wrong-2.mp3';
 import { NavBar } from './components/NavBar/NavBar';
 import { ProgressBar } from './components/ProgressBar/ProgressBar';
 import { OptionDisplay } from './components/OptionDisplay/OptionDisplay';
-import { GAME_WIN_POINTS } from './lib/constants';
-import { usePlayer } from './context/context';
+import { useGameInformation } from './context/gameContext';
 import { CardOptionList } from './components/CardList/CardOptionList';
 import { Player } from './lib/types';
+import { Celebration } from './components/Celebration/Celebration';
+import { useSounds } from './hooks/useSounds';
 
 const App = () => {
-  const [player, setPlayer] = usePlayer();
+  const { player, setPlayer, handleOptionGuess } = useGameInformation();
+  const { playCorrectSfx, playWrongSfx } = useSounds();
 
-  const [round, setRound] = useState(getNewRound());
-  const [points, setPoints] = useState(0);
+  const handleCardClick = (index: number) => handleOptionGuess(index, handleCorrectOption, handleWrongOption);
 
-  const [playCorrectSfx] = useSound(correctSfx);
-  const [playWrongSfx] = useSound(wrongSfx, { interrupt: false });
-
-  const handleCardClick = (index: number) => {
-    if (index === round.correctIndex) handleCorrectOption();
-    else handleWrongOption();
-  };
-
-  const handleCorrectOption = () => {
-    playCorrectSfx();
-    setPoints(points + 1);
-    if (points + 1 === GAME_WIN_POINTS) {
-    } else {
-      setRound(getNewRound());
-    }
-  };
-
-  const handleWrongOption = () => {
-    playWrongSfx();
-    if (points > 0) setPoints(points - 1);
-    setRound(getNewRound());
-  };
+  const handleCorrectOption = () => playCorrectSfx();
+  const handleWrongOption = () => playWrongSfx();
 
   return (
     <div className="app">
       <Sky
         images={{
-          0: `/media/images/${player === Player.Nico ? 'shark.png' : 'bowling-ball.webp'}`,
+          0: `/media/images/${player === Player.Nico ? 'shark.png' : 'sports.png'}`,
         }}
         how={20} /* Pass the number of images Sky will render choosing randomly */
         time={60} /* time of animation */
-        size={'120px'} /* size of the rendered images */
+        size={'100px'} /* size of the rendered images */
       />
+
+      <Celebration />
 
       <NavBar player={player} onChangePlayer={setPlayer} />
 
       <div className="app__container">
-        <OptionDisplay option={round.correctOption} />
+        <OptionDisplay />
 
-        <ProgressBar points={points} />
+        <ProgressBar />
 
-        <CardOptionList options={round.options} onCardOptionClick={handleCardClick} />
+        <CardOptionList onCardOptionClick={handleCardClick} />
       </div>
     </div>
   );

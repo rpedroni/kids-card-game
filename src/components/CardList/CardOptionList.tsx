@@ -1,25 +1,33 @@
-import { Option } from '../../lib/types';
+import { useGameInformation } from '../../context/gameContext';
+import { Option, Player } from '../../lib/types';
 import Card from '../Card/Card';
 
 import './CardOptionList.css';
 
 export const CardOptionList = ({
-  options,
   onCardOptionClick,
 }: {
-  options: Option[];
   onCardOptionClick: (index: number, option: Option) => void;
 }) => {
+  const { round, player, gameVictory } = useGameInformation();
+
   return (
     <div className="card-option-list">
-      {options.map((option, index) => (
-        <Card
-          key={option.wordEN}
-          onClick={() => onCardOptionClick(index, option)}
-          imageUrl={option.imageUrl}
-          altText={option.wordPT}
-        />
-      ))}
+      {gameVictory ? (
+        <div className="victory">
+          <h1>{player === Player.Nico ? 'NICO!' : 'KIKE!'}</h1>
+          <img src={`/media/images/${player === Player.Nico ? 'nico' : 'kike'}.jpeg`} alt="winner" />
+        </div>
+      ) : (
+        round.options.map((option, index) => (
+          <Card
+            key={option.wordEN}
+            onClick={() => onCardOptionClick(index, option)}
+            imageUrl={option.imageUrl}
+            altText={option.wordPT}
+          />
+        ))
+      )}
     </div>
   );
 };
